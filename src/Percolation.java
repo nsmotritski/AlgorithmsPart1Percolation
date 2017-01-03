@@ -17,20 +17,16 @@ public class Percolation {
     private int[] parent;   // parent[i] = parent of i
     private int[] size;     // size[i] = number of sites in subtree rooted at i
     private int count;      // number of components
+    public int[][] percolation; // percolation Matrix
 
     public Percolation(int n) {
-        int[][] percolation = new int[n][n];
+        percolation = new int[n][n];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                percolation[i][j] = xyTo1D(i,j,n);
+                percolation[i][j] = 0;//xyTo1D(i,j,n);
             }
         }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(percolation[i][j] + " ");
-            }
-            System.out.println();
-        }
+        WeightedQuickUnionUF weightedQuickUnionUF = new WeightedQuickUnionUF(n*n);
     }// create n-by-n grid, with all sites blocked
     public void open(int row, int col) {
 
@@ -59,8 +55,20 @@ public class Percolation {
         return true;
     }
 
+    public void print(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(percolation[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
-        Percolation p = new Percolation(5);
+        int n = 5;
+        Percolation p = new Percolation(n);
+        p.print(n);
+
     }
 }
 
